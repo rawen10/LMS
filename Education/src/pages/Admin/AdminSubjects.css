@@ -1,0 +1,74 @@
+.admin-subjects-container {
+  display: flex;
+}
+
+.admin-subjects-content {
+  margin: 20px;
+  flex-grow: 1;
+  direction: rtl;
+  font-family: 'Roboto', sans-serif;
+  margin-right: 300px;
+  margin-top: 100px;
+  width: 100%;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.section h2 {
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.subject-item,
+.period-item,
+.lesson-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.subject-item input,
+.period-item input,
+.lesson-item input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.subject-item button,
+.period-item button,
+.lesson-item button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.subject-item button:hover,
+.period-item button:hover,
+.lesson-item button:hover {
+  background-color: #c82333;
+}
+
+.lessons-list p {
+  margin: 5px 0;
+}
+
+input[type="text"] {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 5px 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+  color: white;
+}
