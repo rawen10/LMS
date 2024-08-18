@@ -31,3 +31,25 @@ telephone String?
     role UserRole @default(Student)
 
 }
+
+model Subject {
+  id        Int       @id @default(autoincrement())
+  name      String
+  periods   Period[]  @relation("SubjectPeriods")
+}
+
+model Period {
+  id         Int       @id @default(autoincrement())
+  name       String
+  subjectId  Int
+  subject    Subject   @relation("SubjectPeriods", fields: [subjectId], references: [id])
+  lessons    Lesson[]  @relation("PeriodLessons")
+}
+
+model Lesson {
+  id         Int       @id @default(autoincrement())
+  title      String
+  content    String
+  periodId   Int
+  period     Period    @relation("PeriodLessons", fields: [periodId], references: [id])
+}

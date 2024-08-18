@@ -34,6 +34,32 @@ async function main() {
       },
     ],
   });
+
+  const subjects = [
+    { name: 'Math' },
+    { name: 'Science' }
+  ];
+
+  for (const subjectData of subjects) {
+    const subject = await prisma.subject.create({
+      data: {
+        name: subjectData.name,
+        periods: {
+          create: Array.from({ length: 6 }).map((_, periodIndex) => ({
+            name: `Période ${periodIndex + 1}`,
+            lessons: {
+              create: Array.from({ length: 8 }).map((_, lessonIndex) => ({
+                title: `Leçon ${lessonIndex + 1}`,
+                content: `Contenu de la leçon ${lessonIndex + 1} de la Période ${periodIndex + 1} pour ${subjectData.name}`,
+              })),
+            },
+          })),
+        },
+      },
+    });
+
+    console.log(`Matière créée: ${subject.name}`);
+  }
 }
 
 main()
