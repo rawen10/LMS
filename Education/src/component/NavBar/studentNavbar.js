@@ -1,96 +1,208 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import './studentNavbar.css';
-import logo from '../../assets/logo.png'; // Ensure the logo image is correctly placed
-import { FiMenu, FiHome, FiUser, FiBook, FiHelpCircle, FiSearch, FiLogOut, FiClipboard } from 'react-icons/fi'; // Import icons from react-icons
-import facebookLogo from '../../assets/fb.png';
-import instagramLogo from '../../assets/ig.png';
-import tiktokLogo from '../../assets/tiktok.png';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import MuiDrawer from '@mui/material/Drawer';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import CssBaseline from '@mui/material/CssBaseline';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import HomeIcon from '@mui/icons-material/Home';
+import PersonIcon from '@mui/icons-material/Person';
+import BookIcon from '@mui/icons-material/Book';
+import HelpIcon from '@mui/icons-material/Help';
+import SearchIcon from '@mui/icons-material/Search';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useLocation } from 'react-router-dom';
+import logo from '../../assets/logo.png';
+
+const drawerWidth = 240;
+
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: 'hidden',
+});
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: 'hidden',
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up('sm')]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+}));
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    ...(open && {
+      ...openedMixin(theme),
+      '& .MuiDrawer-paper': openedMixin(theme),
+    }),
+    ...(!open && {
+      ...closedMixin(theme),
+      '& .MuiDrawer-paper': closedMixin(theme),
+    }),
+  }),
+);
 
 const StudentNavbar = () => {
+  const theme = useTheme();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const location = useLocation(); // Get the current location
+  const location = useLocation();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const userName = "فراس";
-  const userSurname = "مزوغي";
+  const userName = "فراس مزوغي";
   const userClass = "الخامسة ابتدائي";
 
   return (
-    <div className="navbar-container">
-      <header className="student-header">
-        <div className="right-section">
-          <div className="menu-icon" onClick={toggleSidebar}>
-            <FiMenu size={30} />
-          </div>
-          <div className="logo">
-            <img src={logo} alt="WalidAcademy Logo" />
-          </div>
-        </div>
-        <div className="search-bar">
-          <FiSearch size={20} />
-          <input type="text" placeholder="بحث..." />
-        </div>
-        <div className="user-info">
-          <span className="user-name">{`${userName} ${userSurname}`}</span>
-          <span className="user-class">{userClass}</span>
-        </div>
-      </header>
-      <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`} style={{ backgroundColor: '#FFBE00' }}>
-        <nav className="sidebar-links">
-          <Link
-            to="/dashboardstudent"
-            className={location.pathname === '/dashboardstudent' ? 'active' : ''}
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={isSidebarOpen} sx={{ backgroundColor: '#FFBE00' }}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleSidebar}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(isSidebarOpen && { display: 'none' }),
+            }}
           >
-            <FiHome size={20} /><span>الإستقبال</span>
-          </Link>
-          <Link
-            to="/profile"
-            className={location.pathname === '/profile' ? 'active' : ''}
-          >
-            <FiUser size={20} /><span>ملفي الشخصي</span>
-          </Link>
-          <Link
-            to="/offers"
-            className={location.pathname === '/offers' ? 'active' : ''}
-          >
-            <FiBook size={20} /><span>العروض</span>
-          </Link>
-          <Link
-            to="/subjects"
-            className={location.pathname === '/subjects' ? 'active' : ''}
-          >
-            <FiClipboard size={20} /><span>المواد</span>
-          </Link>
-          <Link
-            to="/help"
-            className={location.pathname === '/help' ? 'active' : ''}
-          >
-            <FiHelpCircle size={20} /><span>مساعدة</span>
-          </Link>
-          <Link
-            to="/login"
-            className={location.pathname === '/logout' ? 'active' : ''}
-          >
-            <FiLogOut size={20} /><span>تسجيل الخروج</span>
-          </Link>
-        </nav>
-        <div className="social-media-section">
-          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-            <img src={facebookLogo} alt="Facebook" />
-          </a>
-          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-            <img src={instagramLogo} alt="Instagram" />
-          </a>
-          <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer">
-            <img src={tiktokLogo} alt="TikTok" />
-          </a>
-        </div>
-      </div>
-    </div>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+            {`${userName} - ${userClass}`}
+          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <img src={logo} alt="WalidAcademy Logo" style={{ height: 40, marginLeft: 'auto' }} />
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="permanent" open={isSidebarOpen}>
+        <DrawerHeader>
+          <IconButton onClick={toggleSidebar}>
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {[
+            { text: 'الإستقبال', icon: <HomeIcon />, path: '/dashboardstudent' },
+            { text: 'ملفي الشخصي', icon: <PersonIcon />, path: '/profile' },
+            { text: 'العروض', icon: <BookIcon />, path: '/offers' },
+            { text: 'المواد', icon: <BookIcon />, path: '/subjects' },
+            { text: 'مساعدة', icon: <HelpIcon />, path: '/help' },
+          ].map((item) => (
+            <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: isSidebarOpen ? 'initial' : 'center',
+                  px: 2.5,
+                  borderLeft: location.pathname === item.path ? '4px solid #FFBE00' : 'none',
+                  backgroundColor: location.pathname === item.path ? '#e3f2fd' : 'inherit',
+                }}
+                component="a"
+                href={item.path}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: isSidebarOpen ? 3 : 'auto',
+                    justifyContent: 'center',
+                    color: location.pathname === item.path ? '#FFBE00' : 'inherit',
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.text}
+                  sx={{
+                    opacity: isSidebarOpen ? 1 : 0,
+                    color: location.pathname === item.path ? '#FFBE00' : 'inherit',
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: isSidebarOpen ? 'initial' : 'center',
+                px: 2.5,
+              }}
+              component="a"
+              href="/logout"
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: isSidebarOpen ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                <LogoutIcon />
+              </ListItemIcon>
+              <ListItemText primary="تسجيل الخروج" sx={{ opacity: isSidebarOpen ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Drawer>
+    </Box>
   );
 };
 

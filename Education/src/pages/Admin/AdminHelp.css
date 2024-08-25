@@ -7,7 +7,7 @@
     flex-grow: 1;
     direction: rtl;
     font-family: 'Roboto', sans-serif;
-    margin-top: 140px; /* Applied as requested */
+    
     margin-right: 500px; /* Applied as requested */
     width: calc(100% - 300px); /* Adjust width to account for sidebar */
   }

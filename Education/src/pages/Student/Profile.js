@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Profile.css';
-import Header from '../../component/NavBar/studentNavbar'; // Assuming you have the header component
+
 
 const Profile = () => {
   const user = {
@@ -31,7 +31,7 @@ const Profile = () => {
 
   return (
     <div>
-      <Header />
+    
       <div className="profile-container">
         <div className="profile-content">
           <div className="user-info-section">

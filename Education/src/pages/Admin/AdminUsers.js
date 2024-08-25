@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FiCheckCircle, FiXCircle } from 'react-icons/fi';
-import AdminNavbar from '../../component/NavBar/AdminNavbar';
+
 import './AdminUsers.css';
 
 const AdminUsers = () => {
@@ -31,7 +31,7 @@ const AdminUsers = () => {
 
   return (
     <div>
-      <AdminNavbar />
+      
       <div className="admin-users-container">
         <h1>إدارة المستخدمين</h1>
         <table className="users-table">

@@ -6,8 +6,7 @@
   flex-direction: column;
   align-items: center;
   font-family: 'Roboto', sans-serif;
-  padding-top: 80px; /* Adjust if you have a fixed header */
-  margin-top: -650px;
+  
 }
 
 .offer-content {

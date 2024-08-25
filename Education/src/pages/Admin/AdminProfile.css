@@ -11,8 +11,7 @@
 .admin-profile-content {
   width: calc(100% - 300px);
   padding: 30px;
-  margin-top: 80px;
-  margin-right: 500px;
+ 
   background: #ffffff;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

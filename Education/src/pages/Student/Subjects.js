@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import StudentNavbar from '../../component/NavBar/studentNavbar';
+
 import mathImage from '../../assets/math.jpg'; // Ensure the math image is correctly placed
 import scienceImage from '../../assets/science.png'; // Ensure the science image is correctly placed
 import './Subjects.css'; // Import the CSS for the subjects
@@ -14,7 +14,7 @@ const Subjects = () => {
 
   return (
     <div>
-      <StudentNavbar />
+     
       <div className="subjects-container">
         <div className="subjects-content">
           <h2>المواد الدراسية</h2>

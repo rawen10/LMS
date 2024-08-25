@@ -1,11 +1,11 @@
 import React from 'react';
-import AdminNavbar from '../../component/NavBar/AdminNavbar';
+
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
   return (
     <div className="admin-dashboard-container">
-      <AdminNavbar />
+     
       <div className="admin-dashboard-content">
         <h1>مرحبا بك في لوحة تحكم وليد بوحوش</h1>
         <div className="dashboard-widgets">

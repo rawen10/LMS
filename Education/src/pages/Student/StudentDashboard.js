@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import StudentNavbar from '../../component/NavBar/studentNavbar';
+
 import mathImage from '../../assets/math.jpg';
 import scienceImage from '../../assets/science.png';
 import './StudentDashboard.css';
@@ -14,7 +14,7 @@ const StudentDashboard = () => {
 
   return (
     <div>
-      <StudentNavbar />
+      
       <div className="dashboard-content">
         <h1>مرحبًا بكم الآن يمكنكم التعلم</h1>
         <p className="welcome-message">يسرنا أن نرحب بكم في منصة التعلم الخاصة بنا. استمتعوا بتجربة تعليمية ممتعة ومثرية!</p>

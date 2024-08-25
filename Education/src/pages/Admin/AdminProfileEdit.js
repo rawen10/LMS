@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AdminNavbar from '../../component/NavBar/AdminNavbar';
+
 import './AdminProfileEdit.css';
 
 const AdminProfileEdit = () => {
@@ -15,7 +15,7 @@ const AdminProfileEdit = () => {
 
   return (
     <div className="admin-profile-edit-container">
-      <AdminNavbar />
+    
       <div className="admin-profile-edit-content">
         <h1>تعديل الملف الشخصي</h1>
         <form onSubmit={handleSave} className="edit-form">

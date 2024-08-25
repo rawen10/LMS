@@ -1,11 +1,11 @@
 import React from 'react';
-import AdminNavbar from '../../component/NavBar/AdminNavbar';
+
 import './AdminChangePassword.css';
 
 const AdminChangePassword = () => {
   return (
     <div className="admin-change-password-container">
-      <AdminNavbar />
+ 
       <div className="admin-change-password-content">
         <h1>تغيير كلمة المرور</h1>
         <form className="change-password-form">

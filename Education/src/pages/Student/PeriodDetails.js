@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import StudentNavbar from '../../component/NavBar/studentNavbar';
+
 import lessonImage from '../../assets/logo.png'; // Example lesson image
 import './PeriodDetails.css';
 
@@ -20,7 +20,7 @@ const PeriodDetails = () => {
 
   return (
     <div>
-      <StudentNavbar />
+     
       <div className="period-details">
         <h1>الفترة {periodNumber} - {subjectName}</h1>
         <div className="lessons">

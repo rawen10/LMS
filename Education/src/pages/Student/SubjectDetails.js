@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import StudentNavbar from '../../component/NavBar/studentNavbar';
+
 import mathImage from '../../assets/math.jpg';
 import scienceImage from '../../assets/science.png';
 import './SubjectDetails.css';
@@ -25,7 +25,7 @@ const SubjectDetails = () => {
 
   return (
     <div>
-      <StudentNavbar />
+      
       <div className="subject-details">
         <h1>{isMath ? 'مادة الرياضيات' : 'مادة الإيقاظ العلمي'}</h1>
         <div className="periods">

@@ -8,6 +8,7 @@ const RegistrationForm = () => {
     name: '',
     phone: '',
     birthdate: '',
+    email: '', // Added email field
     password: '',
     confirmPassword: '',
     state: '',
@@ -32,12 +33,12 @@ const RegistrationForm = () => {
   ];
 
   const grades = [
-     "الرابعة 4 ابتدائي", "الخامسة 5 ابتدائي", "السادسة 6 ابتدائي"
+    "الرابعة 4 ابتدائي", "الخامسة 5 ابتدائي", "السادسة 6 ابتدائي"
   ];
 
   return (
     <div className="container">
-        <Header />
+      <Header />
       <form className="registration-form" onSubmit={handleSubmit}>
         <h1>إنشاء حساب جديد</h1>
 
@@ -53,6 +54,9 @@ const RegistrationForm = () => {
 
         <label htmlFor="birthdate">تاريخ الولادة *</label>
         <input type="date" id="birthdate" name="birthdate" value={form.birthdate} onChange={handleChange} required />
+
+        <label htmlFor="email">البريد الإلكتروني *</label>
+        <input type="email" id="email" name="email" value={form.email} onChange={handleChange} required />
 
         <label htmlFor="password">كلمة السّر *</label>
         <input type="password" id="password" name="password" value={form.password} onChange={handleChange} required />

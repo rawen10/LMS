@@ -1,11 +1,11 @@
 import React from 'react';
 import './ProfileEdit.css';
-import Header from '../../component/NavBar/studentNavbar'; // Assuming you have the header component
+
 
 const ProfileEdit = () => {
   return (
     <div>
-      <Header />
+     
       <div className="profile-edit-container">
       
       <div className="profile-edit-content">

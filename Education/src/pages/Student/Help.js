@@ -1,6 +1,6 @@
 import React from 'react';
 import './Help.css';
-import Header from '../../component/NavBar/studentNavbar'; // Assuming you have the header component
+
 import facebookLogo from '../../assets/fb.png';
 import instagramLogo from '../../assets/ig.png';
 import tiktokLogo from '../../assets/tiktok.png';
@@ -8,7 +8,7 @@ import tiktokLogo from '../../assets/tiktok.png';
 const Help = () => {
   return (
    <div>
-     <Header />
+    
     <div className="help-container">
       
       <div className="help-content">

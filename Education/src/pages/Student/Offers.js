@@ -1,11 +1,11 @@
 import React from 'react';
 import './Offers.css';
-import Header from '../../component/NavBar/studentNavbar'; // Assuming you have the header component
+
 
 const Offers = () => {
   return (
     <div className="offers-container">
-      <Header />
+     
       <div className="offer-content">
         <h2>الاشتراك السنوي</h2>
         <p>احصل على خصم خاص عند الاشتراك لمدة سنة كاملة في مادة الرياضيات والإيقاظ العلمي.</p>

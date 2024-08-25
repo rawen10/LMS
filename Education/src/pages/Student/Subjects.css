@@ -11,8 +11,7 @@
   min-height: 100vh;
   direction: rtl;
   animation: fadeIn 1s ease-in-out;
-  margin-top: -638px;
-  margin-right: 95px;
+  
 }
 
 @keyframes fadeIn {

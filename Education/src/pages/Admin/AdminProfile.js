@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AdminNavbar from '../../component/NavBar/AdminNavbar';
+
 import './AdminProfile.css';
 
 const AdminProfile = () => {
   return (
     <div className="admin-profile-container">
-      <AdminNavbar />
+     
       <div className="admin-profile-content">
         <div className="profile-header">
           <img 

@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import AdminNavbar from '../../component/NavBar/AdminNavbar';
+import { FileUpload } from 'primereact/fileupload';
 import './AdminSubjects.css';
 
 const AdminSubjects = () => {
   const classesOptions = ['الرابعة اساسي', 'الخامسة', 'السادسة'];
   const [selectedClass, setSelectedClass] = useState('');
   const [subjects, setSubjects] = useState([]);
-  const [newSubject, setNewSubject] = useState('');
+  const [newSubject, setNewSubject] = useState({ name: '', image: null });
   const [selectedSubjectIndex, setSelectedSubjectIndex] = useState(null);
-  const [newPeriod, setNewPeriod] = useState('');
+  const [newPeriod, setNewPeriod] = useState({ name: '', image: null });
   const [selectedPeriodIndex, setSelectedPeriodIndex] = useState(null);
-  const [newLesson, setNewLesson] = useState({ name: '', videoLink: '', pptLink: '' });
+  const [newLesson, setNewLesson] = useState({ name: '', video: null, ppt: null, image: null });
 
   const handleAddSubject = () => {
     if (selectedClass) {
-      setSubjects([...subjects, { className: selectedClass, name: newSubject, periods: [] }]);
-      setNewSubject('');
+      setSubjects([...subjects, { className: selectedClass, ...newSubject, periods: [] }]);
+      setNewSubject({ name: '', image: null });
     }
   };
 
@@ -25,17 +25,17 @@ const AdminSubjects = () => {
     setSelectedPeriodIndex(null);
   };
 
-  const handleEditSubject = (index, newName) => {
+  const handleEditSubject = (index, updatedSubject) => {
     const updatedSubjects = [...subjects];
-    updatedSubjects[index].name = newName;
+    updatedSubjects[index] = updatedSubject;
     setSubjects(updatedSubjects);
   };
 
   const handleAddPeriod = () => {
     const updatedSubjects = [...subjects];
-    updatedSubjects[selectedSubjectIndex].periods.push({ name: newPeriod, lessons: [] });
+    updatedSubjects[selectedSubjectIndex].periods.push({ ...newPeriod, lessons: [] });
     setSubjects(updatedSubjects);
-    setNewPeriod('');
+    setNewPeriod({ name: '', image: null });
   };
 
   const handleDeletePeriod = (periodIndex) => {
@@ -45,9 +45,9 @@ const AdminSubjects = () => {
     setSelectedPeriodIndex(null);
   };
 
-  const handleEditPeriod = (periodIndex, newName) => {
+  const handleEditPeriod = (periodIndex, updatedPeriod) => {
     const updatedSubjects = [...subjects];
-    updatedSubjects[selectedSubjectIndex].periods[periodIndex].name = newName;
+    updatedSubjects[selectedSubjectIndex].periods[periodIndex] = updatedPeriod;
     setSubjects(updatedSubjects);
   };
 
@@ -55,7 +55,7 @@ const AdminSubjects = () => {
     const updatedSubjects = [...subjects];
     updatedSubjects[selectedSubjectIndex].periods[selectedPeriodIndex].lessons.push(newLesson);
     setSubjects(updatedSubjects);
-    setNewLesson({ name: '', videoLink: '', pptLink: '' });
+    setNewLesson({ name: '', video: null, ppt: null, image: null });
   };
 
   const handleDeleteLesson = (lessonIndex) => {
@@ -70,9 +70,24 @@ const AdminSubjects = () => {
     setSubjects(updatedSubjects);
   };
 
+  const customBase64Uploader = async (event, setStateFunction) => {
+    const file = event.files[0];
+    const reader = new FileReader();
+    let blob = await fetch(file.objectURL).then((r) => r.blob());
+
+    reader.readAsDataURL(blob);
+
+    reader.onloadend = function () {
+      const base64data = reader.result;
+      setStateFunction((prevState) => ({
+        ...prevState,
+        [event.inputName]: base64data,
+      }));
+    };
+  };
+
   return (
     <div className="admin-subjects-container">
-      <AdminNavbar />
       <div className="admin-subjects-content">
         <h1>إدارة المواد والفترات والدروس</h1>
 
@@ -97,9 +112,11 @@ const AdminSubjects = () => {
             <input
               type="text"
               placeholder="اسم المادة"
-              value={newSubject}
-              onChange={(e) => setNewSubject(e.target.value)}
+              value={newSubject.name}
+              onChange={(e) => setNewSubject({ ...newSubject, name: e.target.value })}
             />
+            <label>أضف صورة للمادة</label>
+            <FileUpload mode="basic" name="image" accept="image/*" customUpload uploadHandler={(e) => customBase64Uploader(e, setNewSubject)} />
             <button onClick={handleAddSubject}>إضافة المادة</button>
             <div className="subjects-list">
               {subjects
@@ -109,8 +126,9 @@ const AdminSubjects = () => {
                     <input
                       type="text"
                       value={subject.name}
-                      onChange={(e) => handleEditSubject(index, e.target.value)}
+                      onChange={(e) => handleEditSubject(index, { ...subject, name: e.target.value })}
                     />
+                    <FileUpload mode="basic" name="image" accept="image/*" customUpload uploadHandler={(e) => customBase64Uploader(e, (updated) => handleEditSubject(index, { ...subject, ...updated }))} />
                     <button onClick={() => handleDeleteSubject(index)}>حذف</button>
                     <button onClick={() => setSelectedSubjectIndex(index)}>اختر</button>
                   </div>
@@ -126,9 +144,11 @@ const AdminSubjects = () => {
             <input
               type="text"
               placeholder="اسم الفترة"
-              value={newPeriod}
-              onChange={(e) => setNewPeriod(e.target.value)}
+              value={newPeriod.name}
+              onChange={(e) => setNewPeriod({ ...newPeriod, name: e.target.value })}
             />
+            <label>أضف صورة للفترة</label>
+            <FileUpload mode="basic" name="image" accept="image/*" customUpload uploadHandler={(e) => customBase64Uploader(e, setNewPeriod)} />
             <button onClick={handleAddPeriod}>إضافة الفترة</button>
             <div className="periods-list">
               {subjects[selectedSubjectIndex].periods.map((period, index) => (
@@ -136,8 +156,9 @@ const AdminSubjects = () => {
                   <input
                     type="text"
                     value={period.name}
-                    onChange={(e) => handleEditPeriod(index, e.target.value)}
+                    onChange={(e) => handleEditPeriod(index, { ...period, name: e.target.value })}
                   />
+                  <FileUpload mode="basic" name="image" accept="image/*" customUpload uploadHandler={(e) => customBase64Uploader(e, (updated) => handleEditPeriod(index, { ...period, ...updated }))} />
                   <button onClick={() => handleDeletePeriod(index)}>حذف</button>
                   <button onClick={() => setSelectedPeriodIndex(index)}>اختر</button>
                 </div>
@@ -156,18 +177,12 @@ const AdminSubjects = () => {
               value={newLesson.name}
               onChange={(e) => setNewLesson({ ...newLesson, name: e.target.value })}
             />
-            <input
-              type="text"
-              placeholder="رابط الفيديو"
-              value={newLesson.videoLink}
-              onChange={(e) => setNewLesson({ ...newLesson, videoLink: e.target.value })}
-            />
-            <input
-              type="text"
-              placeholder="رابط PowerPoint"
-              value={newLesson.pptLink}
-              onChange={(e) => setNewLesson({ ...newLesson, pptLink: e.target.value })}
-            />
+            <label>أضف فيديو للدرس</label>
+            <FileUpload mode="basic" name="video" accept="video/*" customUpload uploadHandler={(e) => customBase64Uploader(e, setNewLesson)} />
+            <label>أضف PowerPoint للدرس</label>
+            <FileUpload mode="basic" name="ppt" accept=".ppt,.pptx" customUpload uploadHandler={(e) => customBase64Uploader(e, setNewLesson)} />
+            <label>أضف صورة للدرس</label>
+            <FileUpload mode="basic" name="image" accept="image/*" customUpload uploadHandler={(e) => customBase64Uploader(e, setNewLesson)} />
             <button onClick={handleAddLesson}>إضافة الدرس</button>
             <div className="lessons-list">
               {subjects[selectedSubjectIndex].periods[selectedPeriodIndex].lessons.map((lesson, index) => (
@@ -177,16 +192,9 @@ const AdminSubjects = () => {
                     value={lesson.name}
                     onChange={(e) => handleEditLesson(index, { ...lesson, name: e.target.value })}
                   />
-                  <input
-                    type="text"
-                    value={lesson.videoLink}
-                    onChange={(e) => handleEditLesson(index, { ...lesson, videoLink: e.target.value })}
-                  />
-                  <input
-                    type="text"
-                    value={lesson.pptLink}
-                    onChange={(e) => handleEditLesson(index, { ...lesson, pptLink: e.target.value })}
-                  />
+                  <FileUpload mode="basic" name="video" accept="video/*" customUpload uploadHandler={(e) => customBase64Uploader(e, (updated) => handleEditLesson(index, { ...lesson, ...updated }))} />
+                  <FileUpload mode="basic" name="ppt" accept=".ppt,.pptx" customUpload uploadHandler={(e) => customBase64Uploader(e, (updated) => handleEditLesson(index, { ...lesson, ...updated }))} />
+                  <FileUpload mode="basic" name="image" accept="image/*" customUpload uploadHandler={(e) => customBase64Uploader(e, (updated) => handleEditLesson(index, { ...lesson, ...updated }))} />
                   <button onClick={() => handleDeleteLesson(index)}>حذف</button>
                 </div>
               ))}

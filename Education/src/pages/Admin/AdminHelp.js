@@ -1,11 +1,11 @@
 import React from 'react';
-import AdminNavbar from '../../component/NavBar/AdminNavbar';
+
 import './AdminHelp.css';
 
 const AdminHelp = () => {
   return (
     <div className="admin-help-container">
-      <AdminNavbar />
+      
       <div className="admin-help-content">
         <h1>مساعدة المدير</h1>
         
