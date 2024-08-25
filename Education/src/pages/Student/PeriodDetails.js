@@ -25,6 +25,7 @@ const PeriodDetails = () => {
         <h1>الفترة {periodNumber} - {subjectName}</h1>
         <div className="lessons">
           {lessons.map((lesson, index) => (
+            // aaaaaaaaaaaaaaaaaaaaa
             <Link
               key={index}
               to={`/subject/${subjectName}/period/${periodNumber}/lesson/${index + 1}`}
